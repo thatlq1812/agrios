@@ -1,0 +1,12 @@
+Metric,Service 1,Service 2,Total,Note
+Total Lines (Go code),500,691,1191,Excluding generated proto code
+Proto Files,1,2,3,"user_service.proto, article_service.proto"
+Generated Proto Code,~600,~700,~1300,Auto-generated (not counted)
+Handlers/RPCs,5,5,10,All CRUD operations
+Repository Methods,5,5,10,"GetByID, Create, Update, Delete, List"
+Error Types Handled,4,4,4,"InvalidArgument, NotFound, AlreadyExists, Internal"
+Database Tables,1,1,2,"users, articles"
+Foreign Keys,0,1,1,articles.user_id → users.id
+Sample Data,3 users,3 articles,-,Test data in database
+Test Cases,8,6,14,Manual testing with grpcurl
+Pass Rate,100%,100%,100%,All tests passed

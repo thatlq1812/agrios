@@ -1,0 +1,12 @@
+Hạng Mục,Yêu Cầu,Kết Quả,Trạng Thái,Ghi Chú
+Số lượng services,2 repos riêng biệt,2 services (User & Article),✅ Hoàn thành,service-1-user & service-2-article
+Công nghệ,gRPC + PostgreSQL,gRPC + PostgreSQL 15,✅ Hoàn thành,Inter-service communication working
+Service 1,CRUD Users,5 RPCs (Get/Create/Update/Delete/List),✅ Hoàn thành,Port 50051 - Tested OK
+Service 2,CRUD Articles + User mapping,5 RPCs + gRPC Client,✅ Hoàn thành,Port 50052 - Tested OK
+Tổng code,Viết bằng Go,1191 dòng Go code,✅ Hoàn thành,500 (S1) + 691 (S2)
+Ràng buộc,Không dùng AI code,100% tự tay gõ,✅ Tuân thủ,Chỉ dùng AI đọc docs
+Timeline,6 giờ,6-7 giờ,✅ Đúng hạn,Từ 10h đến 17h
+Testing,CRUD + Error handling,14/14 test cases passed,✅ Pass 100%,Manual test với grpcurl
+Database,PostgreSQL,2 bảng (users + articles),✅ Hoàn thành,Foreign key working
+Inter-service,Service 2 gọi Service 1,Article responses có User info,✅ Hoàn thành,gRPC client OK
+Repository,GitHub,2 repos ready to push,✅ Ready,Code đã commit local
