@@ -1,0 +1,8 @@
+{
+  "go.useLanguageServer": true,
+  "go.lintOnSave": "workspace",
+  "go.formatTool": "goimports",
+  "editor.formatOnSave": true,
+  "go.testOnSave": false,
+  "go.coverOnSave": false
+}

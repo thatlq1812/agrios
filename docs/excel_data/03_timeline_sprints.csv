@@ -1,8 +1,0 @@
-Sprint,Tên Sprint,Thời Gian Dự Kiến,Thời Gian Thực Tế,Tasks,Trạng Thái,Deliverables
-1,Setup & Proto Files,50 phút,50 phút,"Database setup, Proto definition, Code generation",✅ Hoàn thành,"Database schema, 2 proto files, Generated code"
-2,Repository Layer,60 phút,60 phút,"Database connection, Repository pattern, GetUserByID",✅ Hoàn thành,"Connection pool, Repository interface, Query tested"
-3,Service 1 Complete,70 phút,70 phút,"5 gRPC handlers, Error handling, Validation",✅ Hoàn thành,"User service fully working, All RPCs tested"
-4,Service 2 Complete,120 phút,150 phút,"Article repo, gRPC client, 5 handlers, Testing",✅ Hoàn thành,"Article service working, Inter-service OK"
-5,Integration Testing,30 phút,30 phút,"End-to-end testing, Error scenarios",✅ Hoàn thành,All integration tests passed
-6,Documentation,30 phút,20 phút,"Sprint reports, Final summary",✅ Hoàn thành,Complete documentation
-TOTAL,-,360 phút (6h),380 phút (6.3h),-,100%,2 working services

@@ -1,8 +1,0 @@
-STT,Mục,Yêu Cầu,Trạng Thái,Ghi Chú
-1,Số lượng services,2 services riêng biệt,✅ Hoàn thành,service-1-user & service-2-article
-2,Công nghệ giao tiếp,gRPC + Protocol Buffers,✅ Hoàn thành,Inter-service communication working
-3,Database,PostgreSQL,✅ Hoàn thành,PostgreSQL 15-alpine trong Docker
-4,Service 1 (User),CRUD users,✅ Hoàn thành,5 RPCs implemented và tested
-5,Service 2 (Article),CRUD articles + user mapping,✅ Hoàn thành,5 RPCs + gRPC client working
-6,Ràng buộc,Không dùng AI để code,✅ Tuân thủ,100% code tự tay gõ
-7,Timeline,6 giờ,✅ Đúng hạn,6-7 giờ thực tế

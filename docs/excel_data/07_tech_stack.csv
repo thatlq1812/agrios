@@ -1,9 +1,0 @@
-Category,Technology,Version,Purpose,Status
-Language,Go,1.21+,Backend development,✅ Used
-RPC Framework,gRPC,Latest,Inter-service communication,✅ Used
-Serialization,Protocol Buffers,v3,Data format,✅ Used
-Database,PostgreSQL,15-alpine,Data storage,✅ Used
-DB Driver,pgx,v5.7.6,Database connection,✅ Used
-Container,Docker,Latest,Database deployment,✅ Used
-Testing Tool,grpcurl,Latest,Manual testing,✅ Used
-Connection Pooling,pgxpool,v5,Optimize DB connections,✅ Used
