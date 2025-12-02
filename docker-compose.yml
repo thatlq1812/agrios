@@ -1,13 +1,12 @@
-version: '3.8'
-
 services:
+  # PostgreSQL Database
   postgres:
     image: postgres:15-alpine
     container_name: agrios-postgres
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: postgres
+      POSTGRES_DB: agrios
     ports:
       - "5432:5432"
     volumes:
@@ -17,7 +16,68 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    networks:
+      - agrios-network
 
+  # User Service (gRPC)
+  user-service:
+    build:
+      context: .
+      dockerfile: service-1-user/Dockerfile
+    container_name: agrios-user-service
+    environment:
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=agrios
+      - GRPC_PORT=50051
+      - JWT_SECRET=your-super-secret-jwt-key-change-in-production
+    ports:
+      - "50051:50051"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - agrios-network
+    healthcheck:
+      test: [ "CMD", "nc", "-z", "localhost", "50051" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Article Service (gRPC)
+  article-service:
+    build:
+      context: .
+      dockerfile: service-2-article/Dockerfile
+    container_name: agrios-article-service
+    environment:
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=agrios
+      - GRPC_PORT=50052
+      - USER_SERVICE_ADDR=user-service:50051
+    ports:
+      - "50052:50052"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      user-service:
+        condition: service_started
+    restart: unless-stopped
+    networks:
+      - agrios-network
+    healthcheck:
+      test: [ "CMD", "nc", "-z", "localhost", "50052" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # PgAdmin (Database Management UI)
   pgadmin:
     image: dpage/pgadmin4:latest
     container_name: agrios-pgadmin
@@ -31,6 +91,12 @@ services:
       - pgadmin_data:/var/lib/pgadmin
     depends_on:
       - postgres
+    networks:
+      - agrios-network
+
+networks:
+  agrios-network:
+    driver: bridge
 
 volumes:
   postgres_data:
