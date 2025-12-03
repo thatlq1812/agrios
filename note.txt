@@ -1,0 +1,12 @@
+xử lý các tình huống logic yếu (chặn request lỗi trước khi xử lý)
+
+1 và 2 không giao tiếp được
+1 không thể link đến 2
+1 bật 2 tắt"
+
+
+03/12
+Thiết lập thư viện log để in log dạng json
+Chuẩn hóa xử lý lỗi (Sentinel Error)
+
+Thiết lập hết các cấu hình sang cấu hình động
