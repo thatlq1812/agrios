@@ -138,6 +138,34 @@ bash scripts/test-gateway.sh
 
 ---
 
+### test-partial-update.sh
+
+**Purpose:** Test partial update feature for user service
+
+**Usage:**
+```bash
+bash scripts/test-partial-update.sh
+```
+
+**What it does:**
+- Creates a test user
+- Tests updating name only
+- Tests updating email only  
+- Tests updating password only
+- Tests updating multiple fields
+- Verifies changes persist
+
+**When to use:**
+- Testing partial update feature
+- Demonstrating flexible update API
+- Validating field-level updates
+
+**Requirements:**
+- Services must be running
+- Optional: grpcurl for direct gRPC testing
+
+---
+
 ## Common Workflows
 
 ### Fresh Installation
