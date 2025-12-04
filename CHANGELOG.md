@@ -5,6 +5,40 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2025-12-04] - Partial Update Support for User Service
+
+### Summary
+Implemented partial update functionality for user service, allowing clients to update only specific fields without requiring all fields to be provided.
+
+**Changes:**
+- Added `PartialUpdate` method to user repository
+- Modified UpdateUser endpoint to support partial updates
+- Only non-empty fields will be updated
+- Password can now be updated via UpdateUser endpoint
+
+**Benefits:**
+- More flexible API - update name only, email only, or password only
+- Better REST compliance for PATCH-like operations
+- Backward compatible - existing code continues to work
+
+### Example Usage
+
+```bash
+# Update only name
+grpcurl -d '{"id": 1, "name": "New Name"}' localhost:50051 user.UserService.UpdateUser
+
+# Update only email
+grpcurl -d '{"id": 1, "email": "newemail@example.com"}' localhost:50051 user.UserService.UpdateUser
+
+# Update only password
+grpcurl -d '{"id": 1, "password": "newpassword123"}' localhost:50051 user.UserService.UpdateUser
+
+# Update multiple fields
+grpcurl -d '{"id": 1, "name": "New Name", "email": "new@example.com"}' localhost:50051 user.UserService.UpdateUser
+```
+
+---
+
 ## [2025-12-04] - Production-Ready Deployment Documentation
 
 ### Summary

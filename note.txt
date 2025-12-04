@@ -62,4 +62,6 @@ OK note lại các câu lệnh grpc và rest
 
 OK -  tạo lại toàn bộ document và cấu trúc api
 
-DANG LAM - viết làm sao a tự pull 2 repo của e về, rồi a tự chạy được k cần hỏi e
+TAM THOI OK - viết làm sao a tự pull 2 repo của e về, rồi a tự chạy được k cần hỏi e
+
+fix phần update user để nhận những field được update chứ không yêu cầu tất cả

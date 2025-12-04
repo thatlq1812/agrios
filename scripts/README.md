@@ -4,7 +4,7 @@ Collection of utility scripts for Agrios microservices platform.
 
 ## Available Scripts
 
-### 🚀 init-services.sh
+### init-services.sh
 
 **Purpose:** Initialize all services after deployment
 
@@ -27,7 +27,7 @@ bash scripts/init-services.sh
 
 ---
 
-### 🧹 clean-data.sh
+### clean-data.sh
 
 **Purpose:** Clean all data volumes and handle version conflicts
 
@@ -53,7 +53,7 @@ bash scripts/clean-data.sh
 
 ---
 
-### 🌱 seed-data.sh
+### seed-data.sh
 
 **Purpose:** Populate database with sample data for testing
 
@@ -91,7 +91,7 @@ bash scripts/seed-data.sh
 
 ---
 
-### 🗄️ init-databases.sh
+### init-databases.sh
 
 **Purpose:** Initialize PostgreSQL databases (called by Docker)
 
@@ -114,7 +114,7 @@ bash scripts/init-databases.sh
 
 ---
 
-### 🧪 test-gateway.sh
+### test-gateway.sh
 
 **Purpose:** Test API Gateway endpoints
 
