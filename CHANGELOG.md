@@ -15,6 +15,12 @@ Created comprehensive deployment documentation to enable "clone and run" workflo
 2. **Auto-initialization:** Script to handle database migrations automatically
 3. **Quick Start:** 5-command deployment in README.md
 4. **Environment Templates:** Added missing .env.example for gateway service
+5. **PostgreSQL 16:** Upgraded from version 15 to 16 for consistency
+
+**Version Conflict Fix:**
+- Updated to PostgreSQL 16-alpine (from 15)
+- Added troubleshooting for version conflicts
+- Created clean-data.sh script to handle data volume issues
 
 ### Added
 - **docs/DEPLOYMENT.md:** Comprehensive deployment guide with:
@@ -33,7 +39,15 @@ Created comprehensive deployment documentation to enable "clone and run" workflo
   - Verifies service health
   - Provides clear status output with colors
 
+- **scripts/clean-data.sh:** Data cleanup script:
+  - Safely removes all data volumes
+  - Handles PostgreSQL version conflicts
+  - Interactive confirmation before deletion
+  - Clear next-steps instructions
+
 - **service-gateway/.env.example:** Environment template for gateway service
+
+- **docker-compose.yml:** Updated PostgreSQL to version 16-alpine
 
 ### Changed
 - **README.md:** Updated with 5-step quick deployment guide

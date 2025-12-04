@@ -35,6 +35,13 @@ curl http://localhost:8080/health
 
 **✨ That's it! Services are ready to use.**
 
+> **⚠️ PostgreSQL Version Conflict?**  
+> If you see "database files are incompatible" error:
+> ```bash
+> bash scripts/clean-data.sh  # Remove old data
+> docker-compose up -d && sleep 15 && bash scripts/init-services.sh
+> ```
+
 **📖 [Complete Deployment Guide →](./docs/DEPLOYMENT.md)** | **🧪 [API Testing Guide →](./docs/GRPC_COMMANDS.md)**
 
 ---

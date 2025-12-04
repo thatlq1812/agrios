@@ -14,8 +14,8 @@ git --version            # Required: 2.0+
 
 # Optional for local development
 go version               # Optional: 1.21+
-psql --version          # Optional: PostgreSQL 13+
-redis-cli --version     # Optional: Redis 6+
+psql --version          # Optional: PostgreSQL 15+
+redis-cli --version     # Optional: Redis 7+
 ```
 
 ### Installation Links
@@ -149,9 +149,9 @@ redis-server
 
 # Or use Docker for databases only
 docker run -d --name postgres -p 5432:5432 \
-  -e POSTGRES_PASSWORD=postgres postgres:15
+  -e POSTGRES_PASSWORD=postgres postgres:16-alpine
   
-docker run -d --name redis -p 6379:6379 redis:alpine
+docker run -d --name redis -p 6379:6379 redis:7-alpine
 ```
 
 ### Step 3: Setup Environment
@@ -333,6 +333,30 @@ docker system prune -a
 docker-compose build --no-cache
 docker-compose up -d
 ```
+
+### PostgreSQL Version Conflict
+
+```bash
+# Error: "database files are incompatible with server"
+# Or: "database cluster is incompatible with server version"
+# This happens when switching between PostgreSQL versions (e.g., 15 vs 16)
+
+# Solution: Remove old data volume
+docker-compose down
+
+# Remove PostgreSQL volume specifically
+docker volume rm agrios_postgres_data
+
+# Or remove all project volumes
+docker-compose down -v
+
+# Start fresh with correct version
+docker-compose up -d
+sleep 15
+bash scripts/init-services.sh
+```
+
+**Note:** This project uses PostgreSQL 16. If you previously used version 15 or earlier, you must remove old data volumes.
 
 ### Clean Start
 
