@@ -7,6 +7,20 @@ import (
 	"time"
 )
 
+// GetEnvInt retrieves an int value from environment variable with fallback to default value
+func GetEnvInt(key string, defaultValue int) int {
+	valStr := os.Getenv(key)
+	if valStr == "" {
+		return defaultValue
+	}
+	val, err := strconv.Atoi(valStr)
+	if err != nil {
+		log.Printf("Warning: could not parse %s='%s' to int. Using default value %d.", key, valStr, defaultValue)
+		return defaultValue
+	}
+	return val
+}
+
 // GetEnvInt32 retrieves an int32 value from environment variable with fallback to default value
 func GetEnvInt32(key string, defaultValue int32) int32 {
 	valStr := os.Getenv(key)

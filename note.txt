@@ -7,6 +7,59 @@ xử lý các tình huống logic yếu (chặn request lỗi trước khi xử 
 
 03/12
 Thiết lập thư viện log để in log dạng json
+
 Chuẩn hóa xử lý lỗi (Sentinel Error)
 
-Thiết lập hết các cấu hình sang cấu hình động
+Thiết lập hết các cấu hình đang hardcode sang cấu hình động
+
+Thiết lập Regex cho các phép kiểm tra chuỗi
+
+Thiết lập hoàn chỉnh login, logout bằng password với giới hạn token
+
+Thiết lập xác thực user login để tạo được article
+
+hiển thị trạng thái Xem API Đã hết hạn hay chưa
+
+api response format
+
+{
+    "code": "000",
+    "message": "success",
+    "data": {
+    }
+}
+
+
+api list response format
+{
+    "code": "000",
+    "message": "success",
+    "data": {
+        "items": [
+        ],
+        "total": 66,
+        "page": 1,
+        "size": 1,
+        "has_more": true
+    }
+}
+
+grpcurl -plaintext -d '{"email": "test4@example.com", "name": "Test User", "password": "password123"}' localhost:50051 user.UserService/CreateUser
+
+grpcurl -plaintext -d '{
+  "title": "My First Article 4.2",
+  "content": "This is the content of my article",
+  "user_id": 4
+}' localhost:50052 article.ArticleService/CreateArticle
+
+Dec 04 25
+
+OK -fix lại toàn bộ api code sang grpc
+
+OK - sửa lại cấu trúc response theo đúng chuẩn
+
+OK note lại các câu lệnh grpc và rest
+
+OK -  tạo lại toàn bộ document và cấu trúc api
+
+DANG LAM - viết làm sao a tự pull 2 repo của e về, rồi a tự chạy được k cần hỏi e
