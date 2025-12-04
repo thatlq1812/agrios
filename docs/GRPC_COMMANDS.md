@@ -98,7 +98,7 @@ grpcurl -plaintext localhost:50051 describe user.CreateUserRequest
 grpcurl -plaintext \
   -d '{
     "name": "John Doe",
-    "email": "john02@example.com",
+    "email": "john04@example.com",
     "password": "12345678"
   }' \
   localhost:50051 user.UserService.CreateUser
@@ -126,7 +126,7 @@ grpcurl -plaintext \
 ```bash
 grpcurl -plaintext \
   -d '{
-    "email": "john02@example.com",
+    "email": "john04@example.com",
     "password": "12345678"
   }' \
   localhost:50051 user.UserService.Login

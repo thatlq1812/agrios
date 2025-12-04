@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2025-12-04] - Standardized Error Handling Across Services
+
+### Summary
+- Standardized error responses using `response.GRPCError` for consistency and clarity.
+- Added troubleshooting hints to error messages for better user experience.
+- Replaced all `status.Error` calls with `response.GRPCError` in `service-1-user` and `service-2-article`.
+
+### Changed
+- `service-1-user/internal/server/user_server.go`: Replaced `status.Error` with `response.GRPCError`.
+- `service-2-article/internal/server/article_server.go`: Replaced `status.Error` with `response.GRPCError`.
+- `service-2-article/internal/client/user_client.go`: Replaced `status.Error` with `response.GRPCError`.
+- `service-2-article/internal/response/grpc_response.go`: Added `GRPCError` function with hints.
+
 ## [2025-12-04] - Partial Update Support for User Service
 
 ### Summary

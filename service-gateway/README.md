@@ -1,153 +1,154 @@
-# API Gateway Service
+# API Gateway
 
-API Gateway cung cấp HTTP REST API interface cho các gRPC microservices (User Service và Article Service).
+HTTP REST gateway for gRPC microservices.
 
-## Chức năng
+**Port:** `8080` | **Protocol:** HTTP/REST
 
-- **HTTP → gRPC Conversion**: Nhận HTTP REST requests từ client, convert sang gRPC calls
-- **Response Formatting**: Format gRPC responses theo chuẩn mentor yêu cầu với codes "0"-"16"
-- **Error Handling**: Convert gRPC status codes sang API response format chuẩn
-- **CORS Support**: Enable CORS cho development
-- **Request Logging**: Log tất cả incoming requests
+## Quick Start
 
-## Response Format
-
-Tất cả API responses theo format:
-
-### Success Response
-```json
-{
-  "code": "0",
-  "message": "success",
-  "data": {
-    ...
-  }
-}
+```bash
+# Run (User Service and Article Service must be running first!)
+cp .env.example .env  # Edit with your config
+go run cmd/server/main.go
 ```
-
-### List Response
-```json
-{
-  "code": "0",
-  "message": "success",
-  "data": {
-    "items": [...],
-    "total": 66,
-    "page": 1,
-    "size": 10,
-    "has_more": true
-  }
-}
-```
-
-### Error Response
-```json
-{
-  "code": "3",
-  "message": "invalid argument"
-}
-```
-
-## Response Codes (gRPC Standard)
-
-| Code | gRPC Status | HTTP Status | Description |
-|------|-------------|-------------|-------------|
-| 000 | OK | 200 | Success |
-| 001 | CANCELLED | 499 | Request cancelled |
-| 002 | UNKNOWN | 500 | Unknown error |
-| 003 | INVALID_ARGUMENT | 400 | Invalid argument |
-| 004 | DEADLINE_EXCEEDED | 504 | Request timeout |
-| 005 | NOT_FOUND | 404 | Resource not found |
-| 006 | ALREADY_EXISTS | 409 | Resource already exists |
-| 007 | PERMISSION_DENIED | 403 | Permission denied |
-| 013 | INTERNAL | 500 | Internal server error |
-| 014 | UNAVAILABLE | 503 | Service unavailable |
-| 016 | UNAUTHENTICATED | 401 | Authentication required |
 
 ## Environment Variables
 
-```env
-USER_SERVICE_ADDR=localhost:50051      # User Service gRPC address
-ARTICLE_SERVICE_ADDR=localhost:50052   # Article Service gRPC address
-GATEWAY_PORT=8080                      # Gateway HTTP port
-```
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `USER_SERVICE_ADDR` | localhost:50051 | User Service gRPC address |
+| `ARTICLE_SERVICE_ADDR` | localhost:50052 | Article Service gRPC address |
+| `GATEWAY_PORT` | 8080 | HTTP server port |
 
-## Build & Run
+---
 
-### Local Development
+# API Reference
 
-```bash
-cd service-gateway
-go build -o bin/gateway cmd/server/main.go
-./bin/gateway
-```
+## User APIs
 
-### Docker
+### 1. Create User
+
+`POST /api/v1/users`
 
 ```bash
-docker build -t agrios-gateway .
-docker run -p 8080:8080 \
-  -e USER_SERVICE_ADDR=user-service:50051 \
-  -e ARTICLE_SERVICE_ADDR=article-service:50052 \
-  agrios-gateway
+curl -X POST http://localhost:8080/api/v1/users \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "John Doe",
+    "email": "john@example.com",
+    "password": "secret123"
+  }'
 ```
 
-## API Endpoints
-
-### User APIs
-
-#### Create User
-```bash
-POST /api/v1/users
-Content-Type: application/json
-
+**Response:**
+```json
 {
-  "name": "John Doe",
-  "email": "john@example.com",
-  "password": "password123"
-}
-
-# Response
-{
-  "code": "0",
+  "code": "000",
   "message": "success",
   "data": {
     "id": 1,
     "name": "John Doe",
     "email": "john@example.com",
-    "created_at": "2025-12-04T10:00:00Z",
-    "updated_at": "2025-12-04T10:00:00Z"
+    "created_at": "2025-01-01T00:00:00Z",
+    "updated_at": "2025-01-01T00:00:00Z"
   }
 }
 ```
 
-#### Get User
-```bash
-GET /api/v1/users/{id}
+---
 
-# Response
+### 2. Get User
+
+`GET /api/v1/users/{id}`
+
+```bash
+curl http://localhost:8080/api/v1/users/1
+```
+
+**Response:**
+```json
 {
-  "code": "0",
+  "code": "000",
   "message": "success",
   "data": {
     "id": 1,
     "name": "John Doe",
-    "email": "john@example.com"
+    "email": "john@example.com",
+    "created_at": "2025-01-01T00:00:00Z",
+    "updated_at": "2025-01-01T00:00:00Z"
   }
 }
 ```
 
-#### List Users
-```bash
-GET /api/v1/users?page=1&page_size=10
+---
 
-# Response
+### 3. Update User
+
+`PUT /api/v1/users/{id}`
+
+```bash
+curl -X PUT http://localhost:8080/api/v1/users/1 \
+  -H "Content-Type: application/json" \
+  -d '{"name": "John Updated"}'
+```
+
+**Response:**
+```json
 {
-  "code": "0",
+  "code": "000",
   "message": "success",
   "data": {
-    "items": [...],
-    "total": 66,
+    "id": 1,
+    "name": "John Updated",
+    "email": "john@example.com",
+    "created_at": "2025-01-01T00:00:00Z",
+    "updated_at": "2025-01-01T12:00:00Z"
+  }
+}
+```
+
+---
+
+### 4. Delete User
+
+`DELETE /api/v1/users/{id}`
+
+```bash
+curl -X DELETE http://localhost:8080/api/v1/users/1
+```
+
+**Response:**
+```json
+{
+  "code": "000",
+  "message": "success",
+  "data": {
+    "success": true
+  }
+}
+```
+
+---
+
+### 5. List Users
+
+`GET /api/v1/users?page=1&page_size=10`
+
+```bash
+curl "http://localhost:8080/api/v1/users?page=1&page_size=10"
+```
+
+**Response:**
+```json
+{
+  "code": "000",
+  "message": "success",
+  "data": {
+    "users": [
+      {"id": 1, "name": "John Doe", "email": "john@example.com"},
+      {"id": 2, "name": "Jane Smith", "email": "jane@example.com"}
+    ],
+    "total": 25,
     "page": 1,
     "size": 10,
     "has_more": true
@@ -155,50 +156,31 @@ GET /api/v1/users?page=1&page_size=10
 }
 ```
 
-#### Update User
-```bash
-PUT /api/v1/users/{id}
-Content-Type: application/json
+---
 
-{
-  "name": "John Updated",
-  "email": "john.updated@example.com"
-}
+## Auth APIs
+
+### 6. Login
+
+`POST /api/v1/auth/login`
+
+```bash
+curl -X POST http://localhost:8080/api/v1/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "john@example.com",
+    "password": "secret123"
+  }'
 ```
 
-#### Delete User
-```bash
-DELETE /api/v1/users/{id}
-
-# Response
+**Response:**
+```json
 {
-  "code": "0",
+  "code": "000",
   "message": "success",
   "data": {
-    "success": true
-  }
-}
-```
-
-### Auth APIs
-
-#### Login
-```bash
-POST /api/v1/auth/login
-Content-Type: application/json
-
-{
-  "email": "john@example.com",
-  "password": "password123"
-}
-
-# Response
-{
-  "code": "0",
-  "message": "success",
-  "data": {
-    "access_token": "eyJhbGc...",
-    "refresh_token": "eyJhbGc...",
+    "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
     "user": {
       "id": 1,
       "name": "John Doe",
@@ -208,39 +190,23 @@ Content-Type: application/json
 }
 ```
 
-#### Validate Token
+---
+
+### 7. Logout
+
+`POST /api/v1/auth/logout`
+
+**Requires:** `Authorization: Bearer <token>`
+
 ```bash
-POST /api/v1/auth/validate
-Content-Type: application/json
-
-{
-  "token": "eyJhbGc..."
-}
-
-# Response
-{
-  "code": "0",
-  "message": "success",
-  "data": {
-    "valid": true,
-    "user_id": 1,
-    "email": "john@example.com"
-  }
-}
+curl -X POST http://localhost:8080/api/v1/auth/logout \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
 ```
 
-#### Logout
-```bash
-POST /api/v1/auth/logout
-Content-Type: application/json
-
+**Response:**
+```json
 {
-  "token": "eyJhbGc..."
-}
-
-# Response
-{
-  "code": "0",
+  "code": "000",
   "message": "success",
   "data": {
     "success": true
@@ -248,47 +214,65 @@ Content-Type: application/json
 }
 ```
 
-### Article APIs
+---
 
-#### Create Article
+## Article APIs
+
+### 8. Create Article
+
+`POST /api/v1/articles`
+
+**Requires:** `Authorization: Bearer <token>`
+
 ```bash
-POST /api/v1/articles
-Content-Type: application/json
+curl -X POST http://localhost:8080/api/v1/articles \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." \
+  -d '{
+    "title": "My Article",
+    "content": "Article content here...",
+    "user_id": 1
+  }'
+```
 
+**Response:**
+```json
 {
-  "title": "My Article",
-  "content": "Article content here...",
-  "user_id": 1
-}
-
-# Response
-{
-  "code": "0",
+  "code": "000",
   "message": "success",
   "data": {
     "id": 1,
     "title": "My Article",
     "content": "Article content here...",
     "user_id": 1,
-    "created_at": "2025-12-04T10:00:00Z",
-    "updated_at": "2025-12-04T10:00:00Z"
+    "created_at": "2025-01-01T00:00:00Z",
+    "updated_at": "2025-01-01T00:00:00Z"
   }
 }
 ```
 
-#### Get Article
-```bash
-GET /api/v1/articles/{id}
+---
 
-# Response (with user info)
+### 9. Get Article
+
+`GET /api/v1/articles/{id}`
+
+```bash
+curl http://localhost:8080/api/v1/articles/1
+```
+
+**Response:**
+```json
 {
-  "code": "0",
+  "code": "000",
   "message": "success",
   "data": {
     "id": 1,
     "title": "My Article",
     "content": "Article content here...",
     "user_id": 1,
+    "created_at": "2025-01-01T00:00:00Z",
+    "updated_at": "2025-01-01T00:00:00Z",
     "user": {
       "id": 1,
       "name": "John Doe",
@@ -298,185 +282,140 @@ GET /api/v1/articles/{id}
 }
 ```
 
-#### List Articles
-```bash
-GET /api/v1/articles?page=1&page_size=10&user_id=1
+---
 
-# Response
+### 10. Update Article
+
+`PUT /api/v1/articles/{id}`
+
+```bash
+curl -X PUT http://localhost:8080/api/v1/articles/1 \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "Updated Title",
+    "content": "Updated content..."
+  }'
+```
+
+**Response:**
+```json
 {
-  "code": "0",
+  "code": "000",
   "message": "success",
   "data": {
-    "items": [
+    "id": 1,
+    "title": "Updated Title",
+    "content": "Updated content...",
+    "user_id": 1,
+    "created_at": "2025-01-01T00:00:00Z",
+    "updated_at": "2025-01-01T12:00:00Z"
+  }
+}
+```
+
+---
+
+### 11. Delete Article
+
+`DELETE /api/v1/articles/{id}`
+
+```bash
+curl -X DELETE http://localhost:8080/api/v1/articles/1
+```
+
+**Response:**
+```json
+{
+  "code": "000",
+  "message": "success",
+  "data": {
+    "success": true
+  }
+}
+```
+
+---
+
+### 12. List Articles
+
+`GET /api/v1/articles?page=1&page_size=10&user_id=1`
+
+```bash
+# All articles
+curl "http://localhost:8080/api/v1/articles?page=1&page_size=10"
+
+# Filter by author
+curl "http://localhost:8080/api/v1/articles?user_id=1"
+```
+
+**Response:**
+```json
+{
+  "code": "000",
+  "message": "success",
+  "data": {
+    "articles": [
       {
         "id": 1,
         "title": "Article 1",
+        "content": "...",
+        "user_id": 1,
         "user": {
           "id": 1,
-          "name": "John Doe"
+          "name": "John Doe",
+          "email": "john@example.com"
         }
       }
     ],
-    "total": 5,
+    "total": 25,
     "page": 1,
-    "size": 10,
-    "has_more": false
+    "total_pages": 3
   }
 }
 ```
 
-#### Update Article
-```bash
-PUT /api/v1/articles/{id}
-Content-Type: application/json
+---
 
-{
-  "title": "Updated Title",
-  "content": "Updated content"
-}
-```
+## Error Codes
 
-#### Delete Article
-```bash
-DELETE /api/v1/articles/{id}
+| Code | HTTP | Description |
+|------|------|-------------|
+| `000` | 200 | Success |
+| `001` | 409 | Already exists |
+| `003` | 400 | Invalid argument |
+| `005` | 404 | Not found |
+| `016` | 401 | Unauthenticated |
+| `013` | 500 | Internal error |
 
-# Response
-{
-  "code": "0",
-  "message": "success",
-  "data": {
-    "id": 1,
-    "title": "Deleted Article"
-  }
-}
-```
-
-## Testing với curl
-
-```bash
-# Create user
-curl -X POST http://localhost:8080/api/v1/users \
-  -H "Content-Type: application/json" \
-  -d '{"name":"Test User","email":"test@example.com","password":"password123"}'
-
-# Login
-curl -X POST http://localhost:8080/api/v1/auth/login \
-  -H "Content-Type: application/json" \
-  -d '{"email":"test@example.com","password":"password123"}'
-
-# Get user
-curl http://localhost:8080/api/v1/users/1
-
-# List users
-curl "http://localhost:8080/api/v1/users?page=1&page_size=10"
-
-# Create article
-curl -X POST http://localhost:8080/api/v1/articles \
-  -H "Content-Type: application/json" \
-  -d '{"title":"Test Article","content":"Content here","user_id":1}'
-
-# List articles
-curl "http://localhost:8080/api/v1/articles?page=1&page_size=10"
-```
-
-## Error Examples
-
-### Invalid Argument (code "3")
+**Error Response:**
 ```json
 {
-  "code": "3",
-  "message": "email is required"
-}
-```
-
-### Not Found (code "5")
-```json
-{
-  "code": "5",
+  "code": "005",
   "message": "user not found"
 }
 ```
 
-### Already Exists (code "6")
-```json
-{
-  "code": "6",
-  "message": "user with this email already exists"
-}
+---
+
+## Quick Test Flow
+
+```bash
+# 1. Create user
+curl -X POST http://localhost:8080/api/v1/users \
+  -H "Content-Type: application/json" \
+  -d '{"name":"Test","email":"test@example.com","password":"pass123"}'
+
+# 2. Login (save token)
+TOKEN=$(curl -s -X POST http://localhost:8080/api/v1/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"email":"test@example.com","password":"pass123"}' | jq -r '.data.access_token')
+
+# 3. Create article with token
+curl -X POST http://localhost:8080/api/v1/articles \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $TOKEN" \
+  -d '{"title":"My Article","content":"Hello!","user_id":1}'
+
+# 4. Get article
+curl http://localhost:8080/api/v1/articles/1
 ```
-
-### Unauthenticated (code "16")
-```json
-{
-  "code": "16",
-  "message": "invalid email or password"
-}
-```
-
-### Internal Error (code "13")
-```json
-{
-  "code": "13",
-  "message": "internal server error"
-}
-```
-
-## Architecture
-
-```
-┌─────────────┐
-│   Client    │ ← HTTP REST (port 8080)
-│  (Browser)  │   Format: {"code":"0", "message":"success", "data":{}}
-└──────┬──────┘
-       │
-       ↓
-┌─────────────────────────┐
-│    API Gateway          │
-│  (HTTP → gRPC)          │
-│   Port: 8080            │
-│                         │
-│  - Response Wrapper     │
-│  - Error Mapping        │
-│  - CORS, Logging        │
-└──┬──────────────────┬───┘
-   │ gRPC (pure)      │ gRPC (pure)
-   ↓                  ↓
-┌──────────┐    ┌─────────────┐
-│  User    │←───┤  Article    │
-│ Service  │    │  Service    │
-│  :50051  │    │   :50052    │
-└──────────┘    └─────────────┘
-```
-
-## Development Notes
-
-### Response Wrapper Logic
-
-File: `internal/response/wrapper.go`
-
-- `MapGRPCCodeToString()`: Convert gRPC codes.Code → string "0"-"16"
-- `MapGRPCCodeToHTTPStatus()`: Convert gRPC codes → HTTP status codes
-- `Error()`: Main function để convert gRPC errors sang API format
-
-### Handler Pattern
-
-Files: `internal/handler/*_handler.go`
-
-1. Parse HTTP request body
-2. Call gRPC service
-3. Handle gRPC errors với `response.Error()`
-4. Format success response với `response.Success()` hoặc `response.SuccessList()`
-
-### Middleware
-
-- `loggingMiddleware`: Log tất cả requests
-- `corsMiddleware`: Enable CORS cho development
-
-## Production Considerations
-
-1. **Authentication**: Thêm JWT middleware cho protected routes
-2. **Rate Limiting**: Implement rate limiting
-3. **Circuit Breaker**: Add circuit breaker cho gRPC calls
-4. **Metrics**: Add Prometheus metrics
-5. **Tracing**: Implement distributed tracing
-6. **TLS**: Enable TLS cho production
