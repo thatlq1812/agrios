@@ -8,19 +8,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [2025-12-04] - Production-Ready Deployment Documentation
 
 ### Summary
-Created comprehensive deployment documentation to enable "clone and run" workflow on any machine. Added automated initialization scripts and complete setup guides for both Docker and local development.
+Created comprehensive deployment documentation to enable "clone and run" workflow on any machine. Added automated initialization scripts, sample data seeding, and complete setup guides for both Docker and local development.
 
 **Key Additions:**
 1. **DEPLOYMENT.md:** Complete step-by-step deployment guide from scratch
 2. **Auto-initialization:** Script to handle database migrations automatically
-3. **Quick Start:** 5-command deployment in README.md
-4. **Environment Templates:** Added missing .env.example for gateway service
-5. **PostgreSQL 16:** Upgraded from version 15 to 16 for consistency
+3. **Sample Data Seeding:** Pre-populated test data for immediate testing
+4. **Quick Start:** 6-command deployment in README.md (including seed data)
+5. **Environment Templates:** Added missing .env.example for gateway service
+6. **PostgreSQL 16:** Upgraded from version 15 to 16 for consistency
 
 **Version Conflict Fix:**
 - Updated to PostgreSQL 16-alpine (from 15)
 - Added troubleshooting for version conflicts
 - Created clean-data.sh script to handle data volume issues
+
+**Developer Experience:**
+- Seed data script creates ready-to-use test accounts and articles
+- No manual API calls needed for initial testing
+- Consistent test data across all environments
 
 ### Added
 - **docs/DEPLOYMENT.md:** Comprehensive deployment guide with:
@@ -44,6 +50,13 @@ Created comprehensive deployment documentation to enable "clone and run" workflo
   - Handles PostgreSQL version conflicts
   - Interactive confirmation before deletion
   - Clear next-steps instructions
+
+- **scripts/seed-data.sh:** Sample data seeding script:
+  - Creates 4 test users with known credentials
+  - Generates 7 sample articles on various topics
+  - Automated token handling for authenticated requests
+  - Provides summary and test commands after seeding
+  - Colored output for better readability
 
 - **service-gateway/.env.example:** Environment template for gateway service
 

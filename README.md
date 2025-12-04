@@ -29,7 +29,10 @@ sleep 15
 # 4. Initialize services (run migrations)
 bash scripts/init-services.sh
 
-# 5. Verify deployment
+# 5. Seed sample data (optional - for testing)
+bash scripts/seed-data.sh
+
+# 6. Verify deployment
 curl http://localhost:8080/health
 ```
 

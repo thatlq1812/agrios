@@ -115,6 +115,26 @@ curl -X POST http://localhost:8080/api/v1/users/login \
 # Copy the token for next requests
 ```
 
+### Optional: Seed Sample Data
+
+For testing and development, you can populate the database with sample data:
+
+```bash
+# Run seed script
+bash scripts/seed-data.sh
+
+# This creates:
+# - 4 sample users (admin, john, jane, bob)
+# - 7 sample articles
+# - All with test passwords
+
+# Sample credentials:
+# admin@agrios.com / admin123
+# john@example.com / john123
+# jane@example.com / jane123
+# bob@example.com  / bob123
+```
+
 **Done! System is ready to use.**
 
 ---
@@ -488,6 +508,12 @@ docker-compose up -d --build
 
 # Run migrations
 bash scripts/init-services.sh
+
+# Seed sample data
+bash scripts/seed-data.sh
+
+# Clean old data (for version conflicts)
+bash scripts/clean-data.sh
 
 # Access database
 docker exec -it agrios-postgres psql -U postgres -d agrios_user
