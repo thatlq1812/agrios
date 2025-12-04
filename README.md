@@ -9,7 +9,7 @@
 
 Agrios is a modern microservices platform featuring JWT authentication, API Gateway pattern, and gRPC-based service communication.
 
-## 🚀 Quick Deployment
+## Quick Deployment
 
 **New machine? Get started in 3 steps:**
 
@@ -33,32 +33,30 @@ bash scripts/init-services.sh
 curl http://localhost:8080/health
 ```
 
-**✨ That's it! Services are ready to use.**
-
-> **⚠️ PostgreSQL Version Conflict?**  
+> ** PostgreSQL Version Conflict?**  
 > If you see "database files are incompatible" error:
 > ```bash
 > bash scripts/clean-data.sh  # Remove old data
 > docker-compose up -d && sleep 15 && bash scripts/init-services.sh
 > ```
 
-**📖 [Complete Deployment Guide →](./docs/DEPLOYMENT.md)** | **🧪 [API Testing Guide →](./docs/GRPC_COMMANDS.md)**
+**[Complete Deployment Guide →](./docs/DEPLOYMENT.md)** | **[API Testing Guide →](./docs/GRPC_COMMANDS.md)**
 
 ---
 
-## 📚 Documentation
+## Documentation
 
 | Document | Description |
 |----------|-------------|
-| **[📖 Documentation Hub](./docs/README.md)** | Main documentation index |
-| **[🗺️ Documentation Map](./docs/DOCUMENTATION_MAP.md)** | Find docs by task or role |
-| **[🚀 Deployment & Testing](./docs/DEPLOYMENT_AND_TESTING.md)** | Complete setup guide |
-| **[🏗️ Architecture Guide](./docs/ARCHITECTURE_GUIDE.md)** | System design & patterns |
-| **[📋 API Reference](./docs/API_REFERENCE.md)** | Complete API documentation |
+| **[Documentation Hub](./docs/README.md)** | Main documentation index |
+| **[Documentation Map](./docs/DOCUMENTATION_MAP.md)** | Find docs by task or role |
+| **[Deployment & Testing](./docs/DEPLOYMENT_AND_TESTING.md)** | Complete setup guide |
+| **[Architecture Guide](./docs/ARCHITECTURE_GUIDE.md)** | System design & patterns |
+| **[API Reference](./docs/API_REFERENCE.md)** | Complete API documentation |
 
 ---
 
-## 🏗️ Architecture
+## Architecture
 
 ```
 Client (Browser/Mobile)
@@ -96,18 +94,18 @@ Client (Browser/Mobile)
 
 ---
 
-## ✨ Key Features
+## Key Features
 
-- ✅ **API Gateway Pattern** - REST API with gRPC backend communication
-- ✅ **JWT Authentication** - Access/refresh tokens with Redis blacklist
-- ✅ **Microservices** - Independent, scalable services
-- ✅ **gRPC Communication** - Efficient inter-service communication
-- ✅ **Docker Ready** - Complete containerization support
-- ✅ **Standardized Responses** - `{"code":"000", "message":"success", "data":{}}`
+- **API Gateway Pattern** - REST API with gRPC backend communication
+- **JWT Authentication** - Access/refresh tokens with Redis blacklist
+- **Microservices** - Independent, scalable services
+- **gRPC Communication** - Efficient inter-service communication
+- **Docker Ready** - Complete containerization support
+- **Standardized Responses** - `{"code":"000", "message":"success", "data":{}}`
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **Language:** Go 1.21+
 - **Communication:** gRPC (internal), REST (external)
@@ -611,12 +609,4 @@ netstat -ano | findstr :50051
 - Docker Compose for easy deployment
 - Health checks for all services
 - Graceful shutdown handling
-- Environment-based configuration
-
-## License
-
-This project is for learning and demonstration purposes.
-
-## Author
-
-thatlq1812
+- Environment-based configurations
