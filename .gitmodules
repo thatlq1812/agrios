@@ -1,4 +1,4 @@
-[submodule "service-1-user"]
+[submodule "github.com/thatlq1812/service-1-user"]
 	path = service-1-user
 	url = https://github.com/thatlq1812/service-1-user.git
 [submodule "service-2-article"]

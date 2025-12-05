@@ -18,13 +18,13 @@ PENDING ISSUES
 Dec 03, 2025 - PLANNED TASKS
 --------------------------------------------------------------------------------
 
-[ ] Setup JSON logging library
-[ ] Standardize error handling (Sentinel Error pattern)
-[ ] Move hardcoded configs to dynamic configuration
-[ ] Setup Regex for string validation
-[ ] Complete login/logout with password and token limits
-[ ] Setup user authentication for article creation
-[ ] Display API token expiration status
+[x] Setup JSON logging library
+[x] Standardize error handling (Sentinel Error pattern)
+[x] Move hardcoded configs to dynamic configuration
+[x] Setup Regex for string validation
+[x] Complete login/logout with password and token limits
+[x] Setup user authentication for article creation
+[~] Display API token expiration status
 
 --------------------------------------------------------------------------------
 Dec 04, 2025 - PROGRESS
@@ -40,6 +40,59 @@ Dec 04, 2025 - PROGRESS
 [x] Fix article list, check all APIs, check error descriptions
 [ ] Document access token and refresh token workflow
 [ ] Configure Redis blacklist token management (redis-cli)
+
+--------------------------------------------------------------------------------
+Dec 05, 2025 - PROGRESS
+--------------------------------------------------------------------------------
+
+Làm sao để - < TÁCH CÁC THƯ MỤC SERVICE RIÊNG BIỆT, KHÔNG CHUNG 1 THƯ MỤC, KHỞI CHẠY RIÊNG BIỆT TỪNG SERVICE VÀ CÓ THỂ GỌI NHAU QUA GRPC, CÓ THỂ HOẠT ĐỘNG TỐT VÀ ĐỘC LẬP>
+
+
+
+    ### 1. HTTP & REST API
+    - HTTP là gì?
+    - Method: `GET`, `POST`, `PUT`, `DELETE`, `PATCH`
+    - Status Code: `200`, `201`, `400`, `401`, `403`, `404`, `500`
+    - Header, Body, Query, Path param
+    - RESTful API là gì?
+    - JSON, form-data, multipart
+
+    ### 2. SQL
+    - `SELECT`, `INSERT`, `UPDATE`, `DELETE`
+    - `WHERE`, `GROUP BY`, `HAVING`, `ORDER BY`
+    - `JOIN`: `INNER`, `LEFT`, `RIGHT`
+    - Index là gì? Khi nào cần index?
+    - Transaction (`BEGIN`, `COMMIT`, `ROLLBACK`)
+    - ACID
+
+    ### 3. Authentication & Authorization
+    - JWT là gì? Access token vs Refresh token
+    - Role-based access control (RBAC)
+    - Phân biệt:
+        - Authentication (xác thực)
+        - Authorization (phân quyền)
+    ### 4. Git cơ bản
+    - `clone`, `pull`, `push`
+    - `commit`, `branch`, `merge`
+    - `rebase`
+    - Resolve conflict
+
+    ### 5. Clean Code
+    - Naming rõ ràng
+    - Tách hàm nhỏ
+    - Không hard-code
+
+    ### 6. Bảo mật Backend
+    - SQL Injection
+    - XSS, CSRF
+    - Hash password: bcrypt, argon2
+    - HTTPS vs HTTP
+    - Rate limit, brute force
+    - Không log password, token
+
+    ### 7. Performance & Scalability
+    - Pagination
+    - Caching (Redis)
 
 ================================================================================
                               REFERENCE SECTION

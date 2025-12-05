@@ -1,4 +1,4 @@
-### ✅ HTTP & REST API
+### HTTP & REST API
 - HTTP là gì?
 - Method: `GET`, `POST`, `PUT`, `DELETE`, `PATCH`
 - Status Code: `200`, `201`, `400`, `401`, `403`, `404`, `500`
@@ -6,7 +6,7 @@
 - RESTful API là gì?
 - JSON, form-data, multipart
 
-### ✅ SQL
+### SQL
 - `SELECT`, `INSERT`, `UPDATE`, `DELETE`
 - `WHERE`, `GROUP BY`, `HAVING`, `ORDER BY`
 - `JOIN`: `INNER`, `LEFT`, `RIGHT`
@@ -14,24 +14,24 @@
 - Transaction (`BEGIN`, `COMMIT`, `ROLLBACK`)
 - ACID
 
-### ✅ Authentication & Authorization
+### Authentication & Authorization
 - JWT là gì? Access token vs Refresh token
 - Role-based access control (RBAC)
 - Phân biệt:
     - Authentication (xác thực)
     - Authorization (phân quyền)
-### ✅ Git cơ bản
+### Git cơ bản
 - `clone`, `pull`, `push`
 - `commit`, `branch`, `merge`
 - `rebase`
 - Resolve conflict
 
-### ✅ Clean Code
+### Clean Code
 - Naming rõ ràng
 - Tách hàm nhỏ
 - Không hard-code
 
-### ✅ Bảo mật Backend
+### Bảo mật Backend
 - SQL Injection
 - XSS, CSRF
 - Hash password: bcrypt, argon2
@@ -39,6 +39,6 @@
 - Rate limit, brute force
 - Không log password, token
 
-### ✅ Performance & Scalability
+### Performance & Scalability
 - Pagination
 - Caching (Redis)

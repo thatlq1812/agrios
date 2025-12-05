@@ -933,7 +933,7 @@ docker-compose restart postgres
 # Check User Service running
 docker-compose ps user-service
 # Or
-ps aux | grep "service-1-user"
+ps aux | grep "github.com/thatlq1812/service-1-user"
 
 # Check logs
 docker-compose logs user-service

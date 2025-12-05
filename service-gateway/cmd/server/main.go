@@ -10,9 +10,10 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 
-	userpb "service-1-user/proto"
 	articlepb "service-2-article/proto"
 	"service-gateway/internal/handler"
+
+	userpb "github.com/thatlq1812/service-1-user/proto"
 )
 
 func main() {
@@ -52,6 +53,13 @@ func main() {
 	defer articleConn.Close()
 	articleClient := articlepb.NewArticleServiceClient(articleConn)
 	log.Printf("✓ Connected to Article Service")
+
+	// Create HTTP Router (receive REST request)
+	router := mux.NewRouter()
+
+	// Define REST endpoints
+	api.HandleFunc("/users", userHandler.CreateUser).Methods("POST")
+	api.HandleFunc("articles", articleHandler.CreateArticle).Methods("POST")
 
 	// Initialize handlers
 	userHandler := handler.NewUserHandler(userClient)

@@ -6,8 +6,9 @@ import (
 	"net/http"
 	"strconv"
 
-	userpb "service-1-user/proto"
 	"service-gateway/internal/response"
+
+	userpb "github.com/thatlq1812/service-1-user/proto"
 
 	"github.com/gorilla/mux"
 )
